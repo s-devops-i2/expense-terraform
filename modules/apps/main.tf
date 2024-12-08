@@ -7,4 +7,19 @@ resource "aws_instance" "instance" {
     Name = var.component
   }
 }
+resource "null_resource" "ansible" {
 
+    provisioner "remote-exec" {
+      connection {
+        type     = "ssh"
+        user     = var.ssh_user
+        password = var.ssh_password
+        host     = aws_instance.instance.public_ip
+      }
+
+      inline = [
+      "echo connected..to..remote..host"
+    ]
+  }
+
+}
