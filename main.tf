@@ -1,5 +1,5 @@
 module "frontend" {
-  source = "./modules/apps"
+  source        = "./modules/apps"
   instance_type = var.instance_type
   component     ="frontend"
   ssh_user      = var.ssh_user
@@ -10,7 +10,9 @@ module "frontend" {
 }
 
 module "backend" {
-  source = "./modules/apps"
+  depends_on    = [module.mysql]
+
+  source        = "./modules/apps"
   instance_type = var.instance_type
   component     ="backend"
   ssh_user      = var.ssh_user
@@ -21,7 +23,7 @@ module "backend" {
 }
 
 module "mysql" {
-  source = "./modules/apps"
+  source        = "./modules/apps"
   instance_type = var.instance_type
   component     ="mysql"
   ssh_user      = var.ssh_user
