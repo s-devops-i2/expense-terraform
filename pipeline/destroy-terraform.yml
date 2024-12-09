@@ -1,0 +1,32 @@
+format_version: 10
+pipelines:
+ terraform-tf-destroy:
+  group: TerraformGroup
+  label_template: ${COUNT}
+  lock_behavior: none
+  display_order: -1
+  materials:
+    git-3caedef:
+      git: https://github.com/s-devops-i2/expense-terraform.git
+      shallow_clone: false
+      auto_update: true
+      branch: main
+  stages:
+    - DEV:
+        environment_variables:
+          env: dev
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: manual
+          allow_only_on_success: false
+        jobs:
+          terraform-apply:
+            timeout: 0
+            tasks:
+              - exec: {command: terraform, arguments: ["init", "-backend-config=env-dev/state.tfvars"],run_if: passed}
+              - exec: {command: terraform, arguments: ["destroy", "-var-file=env-dev/main.tfvars", "-auto-approve" ],run_if: passed}
+
+
+
