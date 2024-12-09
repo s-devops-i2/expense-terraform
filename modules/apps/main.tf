@@ -18,8 +18,15 @@ resource "null_resource" "ansible" {
       }
 
       inline = [
-      "echo connected..to..remote..host"
+      "sudo pip3.11 install ansible -y",
+      "ansible-pull -i localhost, -U https://github.com/s-devops-i2/expense-terraform.git -role_name=${var.component} -e env=${var.env} expense-play.yml"
     ]
   }
-
+}
+resource "aws_route53_record" "dns_record" {
+  name    = "${var.component}-${var.env}"
+  type    = "A"
+  zone_id = var.zone_id
+  ttl     =  30
+  records = [aws_instance.instance.private_ip]
 }
