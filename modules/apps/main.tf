@@ -18,7 +18,7 @@ resource "null_resource" "ansible" {
       }
 
       inline = [
-      "sudo pip3.11 install ansible -y",
+      "sudo pip3.11 install ansible",
       "ansible-pull -i localhost, -U https://github.com/s-devops-i2/expense-terraform.git -role_name=${var.component} -e env=${var.env} expense-play.yml"
     ]
   }
