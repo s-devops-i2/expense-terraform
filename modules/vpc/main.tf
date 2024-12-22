@@ -24,3 +24,8 @@ resource "aws_vpc_peering_connection" "foo" {
     Name = "peer"
   }
 }
+resource "aws_route" "r" {
+  route_table_id            = var.dev_route_table_id
+  destination_cidr_block    = "172.31.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.foo.id
+}

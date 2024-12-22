@@ -35,4 +35,5 @@ module "vpc" {
   env                   = var.env
   dev_subnet_cidr_block = var.dev_subnet_cidr_block
   default_vpc_id        = var.default_vpc_id
+  dev_rout_table_id     = var.dev_route_table_id
 }
