@@ -30,8 +30,9 @@
 # }
 
 module "vpc" {
-  source         = "./modules/vpc"
-  dev_cidr_block = var.dev_cidr_block
-  env            = var.env
+  source                = "./modules/vpc"
+  dev_vpc_cidr_block        = var.dev_vpc_cidr_block
+  env                   = var.env
+  dev_subnet_cidr_block = var.dev_subnet_cidr_block
 
 }
