@@ -31,6 +31,6 @@ resource "aws_route" "dev-rt" {
 }
 resource "aws_route" "default_rt" {
   route_table_id            = var.default_rout_table_id
-  destination_cidr_block    = "172.31.0.0/16"
+  destination_cidr_block    = "10.10.0.0/24"
   vpc_peering_connection_id = aws_vpc_peering_connection.foo.id
 }
