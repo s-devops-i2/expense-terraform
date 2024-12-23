@@ -3,6 +3,7 @@ variable "env" {}
 variable "zone_id" {}
 variable "vault_token" {}
 variable "dev_vpc_cidr_block" {}
+variable "default_vpc_cidr" {}
 
 variable "default_vpc_id" {}
 variable "dev_route_table_id" {}
