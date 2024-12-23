@@ -33,8 +33,11 @@ module "vpc" {
   source                = "./modules/vpc"
   dev_vpc_cidr_block        = var.dev_vpc_cidr_block
   env                   = var.env
-  dev_subnet_cidr_block = var.dev_subnet_cidr_block
+  frontend_subnets      = var.frontend_subnets
+  backend_subnets       = var.backend_subnets
+  db_subnets            = var.db_subnets
   default_vpc_id        = var.default_vpc_id
   dev_route_table_id     = var.dev_route_table_id
   default_rout_table_id  = var.default_rout_table_id
+  Availability_zones     = var.Availability_zones
 }
