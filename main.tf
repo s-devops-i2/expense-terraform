@@ -20,7 +20,7 @@ module "backend" {
   zone_id       = var.zone_id
   vault_token   = var.vault_token
   subnets       = module.vpc.backend_subnet
-  vpc_id        = module.vpc.backend_subnet
+  vpc_id        = module.vpc.vpc_id
 }
 #
 module "mysql" {
