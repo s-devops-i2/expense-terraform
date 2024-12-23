@@ -24,7 +24,7 @@ resource "aws_subnet" "backend" {
   availability_zone = var.Availability_zones[count.index]
 
   tags = {
-    Name = "${var.env}-back-subnet${count.index+1}"
+    Name = "${var.env}-backend-subnet${count.index+1}"
   }
 }
 resource "aws_subnet" "db" {
