@@ -28,7 +28,7 @@ resource "aws_vpc_peering_connection" "foo" {
   }
 }
 resource "aws_route" "dev-rt" {
-  route_table_id            = var.dev_route_table_id
+  route_table_id            = aws_vpc.main.main_route_table_id
   destination_cidr_block    = "172.31.0.0/16"
   vpc_peering_connection_id = aws_vpc_peering_connection.foo.id
 }
