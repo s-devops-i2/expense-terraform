@@ -8,6 +8,6 @@ data "aws_ami" "ami" {
 #   name = "allow-all"
 # }
 
-# data "vault_generic_secret" "ssh" {
-#   path = "common/common"
-# }
+data "vault_generic_secret" "ssh" {
+  path = "common/common"
+}
