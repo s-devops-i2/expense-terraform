@@ -8,3 +8,4 @@ variable "db_subnets" {}
 variable "frontend_subnets" {}
 variable "backend_subnets" {}
 variable "Availability_zones" {}
+variable "public_subnets" {}
