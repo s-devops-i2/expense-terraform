@@ -27,7 +27,7 @@ resource "aws_route_table" "frontend" {
   }
   route {
     cidr_block                = "0.0.0.0/0"
-    gateway_id                = aws_internet_gateway.igw.id
+    gateway_id                = aws_nat_gateway.nat-gw.id
   }
 
   tags = {
@@ -62,7 +62,7 @@ resource "aws_route_table" "backend" {
   }
   route {
     cidr_block                = "0.0.0.0/0"
-    gateway_id                = aws_internet_gateway.igw.id
+    gateway_id                = aws_nat_gateway.nat-gw.id
   }
 
   tags = {
@@ -98,7 +98,7 @@ resource "aws_route_table" "db" {
   }
   route {
     cidr_block                = "0.0.0.0/0"
-    gateway_id                = aws_internet_gateway.igw.id
+    gateway_id                = aws_nat_gateway.nat-gw.id
   }
 
   tags = {
@@ -148,6 +148,28 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public[count.index].id
 }
 
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${var.env}-igw"
+  }
+}
+
+resource "aws_eip" "eip" {
+  count      = length(var.public_subnets)
+  domain   = "vpc"
+}
+
+resource "aws_nat_gateway" "nat-gw" {
+  count      = length(var.public_subnets)
+  allocation_id = aws_eip.eip[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+
+  tags = {
+    Name = "${var.env}-${count.index+1}"
+  }
+}
 
 resource "aws_vpc_peering_connection" "foo" {
   peer_vpc_id   = var.default_vpc_id
@@ -169,10 +191,3 @@ resource "aws_route" "default_rt" {
   vpc_peering_connection_id = aws_vpc_peering_connection.foo.id
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = "${var.env}-igw"
-  }
-}
