@@ -27,7 +27,7 @@ resource "aws_route_table" "frontend" {
   }
   route {
     cidr_block                = "0.0.0.0/0"
-    gateway_id                = aws_nat_gateway.nat-gw.id
+    gateway_id                = aws_nat_gateway.nat-gw[count.index].id
   }
 
   tags = {
@@ -62,7 +62,7 @@ resource "aws_route_table" "backend" {
   }
   route {
     cidr_block                = "0.0.0.0/0"
-    gateway_id                = aws_nat_gateway.nat-gw.id
+    gateway_id                = aws_nat_gateway.nat-gw[count.index].id
   }
 
   tags = {
@@ -98,7 +98,7 @@ resource "aws_route_table" "db" {
   }
   route {
     cidr_block                = "0.0.0.0/0"
-    gateway_id                = aws_nat_gateway.nat-gw.id
+    gateway_id                = aws_nat_gateway.nat-gw[count.index].id
   }
 
   tags = {
