@@ -49,6 +49,16 @@ resource "aws_subnet" "public" {
   }
 }
 
+resource "aws_route_table" "public" {
+  count      = length(var.public_subnets)
+  vpc_id = aws_vpc.main.id
+
+
+  tags = {
+    Name = "${var.env}-public-rt${count.index+1}"
+  }
+}
+
 
 resource "aws_vpc_peering_connection" "foo" {
   peer_vpc_id   = var.default_vpc_id
