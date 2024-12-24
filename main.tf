@@ -43,6 +43,7 @@ module "vpc" {
   db_subnets            = var.db_subnets
   public_subnets        = var.public_subnets
   default_vpc_id        = var.default_vpc_id
+  default_vpc_cidr      = var.default_vpc_cidr
   dev_route_table_id    = var.dev_route_table_id
   default_rout_table_id = var.default_rout_table_id
   Availability_zones    = var.Availability_zones
