@@ -65,7 +65,7 @@ resource "aws_route53_record" "dns_record" {
 }
 
 resource "aws_lb" "main" {
-  count              = var.lb_needed == "true" ? true : false
+  count              = var.lb_needed ? 1 : 0
   name               = "${var.env}-${var.component}-lb"
   internal           = var.lb_type == "public " ? true : false
   load_balancer_type = "application"
