@@ -78,11 +78,22 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "lb-tg" {
-  count    = var.lb_needed ? 1 : 0
-  name     = "${var.env}-${var.component}-tg"
-  port     = var.lb_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  count                = var.lb_needed ? 1 : 0
+  name                 = "${var.env}-${var.component}-tg"
+  port                 = var.lb_port
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
+  deregistration_delay = 15
+
+  health_check {
+    healthy_threshold   = 2
+    interval            = 3
+    path                = "/health"
+    port                = var.lb_port
+    timeout             = 2
+    unhealthy_threshold = 2
+
+  }
 }
 
 resource "aws_lb_target_group_attachment" "tg-attachment" {
