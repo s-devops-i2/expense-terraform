@@ -11,6 +11,7 @@ module "frontend" {
   lb_type       = "public"
   lb_needed     = true
   lb_subnet     = module.vpc.public_subnet
+  lb_port       = 80
 }
 
 module "backend" {
@@ -27,6 +28,7 @@ module "backend" {
   lb_type       = "private"
   lb_needed     = true
   lb_subnet     = module.vpc.backend_subnet
+  lb_port       = 8080
 }
 #
 module "mysql" {

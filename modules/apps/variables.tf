@@ -15,3 +15,6 @@ variable "lb_needed" {
 variable "lb_subnet" {
   default = null
 }
+variable "lb_port" {
+  default = null
+}

@@ -76,3 +76,12 @@ resource "aws_lb" "main" {
     Environment = "${var.env}-${var.component}-lb"
   }
 }
+
+resource "aws_lb_target_group" "lb-tg" {
+  count    = var.lb_needed ? 1 : 0
+  name     = "${var.env}-${var.component}-lb"
+  port     = var.lb_port
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
+
