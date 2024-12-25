@@ -33,7 +33,12 @@ resource "aws_instance" "instance" {
     Name    = var.component
     monitor = "yes"
     env     = var.env
+
   }
+  lifecycle {
+   ignore_changes        = [ami]
+  }
+
 }
 resource "null_resource" "ansible" {
   connection {
@@ -87,7 +92,7 @@ resource "aws_lb_target_group" "lb-tg" {
 
   health_check {
     healthy_threshold   = 2
-    interval            = 3
+    interval            = 5
     path                = "/health"
     port                = var.lb_port
     timeout             = 2
