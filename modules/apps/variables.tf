@@ -7,11 +7,11 @@ variable "subnets" {}
 variable "vpc_id" {}
 
 variable "lb_type" {
-  default = "null"
+  default = null
 }
 variable "lb_needed" {
-  default = "null"
+  default = null
 }
 variable "lb_subnet" {
-  default = "null"
+  default = null
 }
