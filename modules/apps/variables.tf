@@ -10,7 +10,7 @@ variable "lb_type" {
   default = null
 }
 variable "lb_needed" {
-  default = null
+  default = false
 }
 variable "lb_subnet" {
   default = null
