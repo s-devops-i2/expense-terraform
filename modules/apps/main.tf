@@ -61,12 +61,23 @@ resource "null_resource" "ansible" {
     ]
   }
 }
-resource "aws_route53_record" "dns_record" {
+
+resource "aws_route53_record" "server-record" {
+  count   = var.lb_needed ? 0 : 1
   name    = "${var.component}-${var.env}"
   type    = "A"
   zone_id = var.zone_id
   ttl     =  30
   records = [aws_instance.instance.private_ip]
+}
+
+resource "aws_route53_record" "lb-record" {
+  count   = var.lb_needed ? 1 : 0
+  name    = "${var.component}-${var.env}"
+  type    = "CNAME"
+  zone_id = var.zone_id
+  ttl     =  30
+  records = [aws_lb.main[0].dns_name]
 }
 
 resource "aws_lb" "main" {
