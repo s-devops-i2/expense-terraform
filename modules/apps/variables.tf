@@ -5,3 +5,6 @@ variable "zone_id" {}
 variable "vault_token" {}
 variable "subnets" {}
 variable "vpc_id" {}
+variable "lb_type" {}
+variable "lb_needed" {}
+variable "lb_subnet" {}

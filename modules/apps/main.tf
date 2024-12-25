@@ -63,3 +63,16 @@ resource "aws_route53_record" "dns_record" {
   ttl     =  30
   records = [aws_instance.instance.private_ip]
 }
+
+resource "aws_lb" "main" {
+  count              = var.lb_needed == "true" ? true : false
+  name               = "${var.env}-${var.component}-lb"
+  internal           = var.lb_type == "public " ? true : false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.main.id]
+  subnets            = var.lb_subnet
+
+  tags = {
+    Environment = "${var.env}-${var.component}-lb"
+  }
+}
