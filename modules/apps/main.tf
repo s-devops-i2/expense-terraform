@@ -67,10 +67,10 @@ resource "aws_route53_record" "dns_record" {
 resource "aws_lb" "main" {
   count              = var.lb_needed ? 1 : 0
   name               = "${var.env}-${var.component}-lb"
-  internal           = var.lb_type == "public " ? true : false
+  internal           = var.lb_type == "public " ? false : true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.main.id]
-  subnets            = var.lb_subnet
+  subnets            = var.lb_subnet[0]
 
   tags = {
     Environment = "${var.env}-${var.component}-lb"
