@@ -156,7 +156,7 @@ resource "aws_lb_listener" "backend" {
   count            = var.lb_needed && var.lb_type != "public"? 1 : 0
   load_balancer_arn = aws_lb.main[0].arn
   port              = var.app_port
-  protocol          = " HTTP"
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
