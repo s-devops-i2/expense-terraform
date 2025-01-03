@@ -11,7 +11,8 @@ module "frontend" {
   lb_type       = "public"
   lb_needed     = true
   lb_subnet     = module.vpc.public_subnet
-  app_port       = 80
+  app_port      = 80
+  certificate_arn = var.certificate_arn
 }
 
 module "backend" {

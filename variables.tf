@@ -13,3 +13,4 @@ variable "backend_subnets" {}
 variable "db_subnets" {}
 variable "Availability_zones" {}
 variable "public_subnets" {}
+variable "certificate_arn" {}

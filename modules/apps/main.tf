@@ -143,7 +143,7 @@ resource "aws_lb_listener" "frontend-https" {
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = "arn:aws:acm:us-east-1:471112569439:certificate/46a223be-5a82-4131-817e-714fffaeeb8d"
+  certificate_arn   = var.certificate_arn
   alpn_policy       = "HTTP2Preferred"
 
   default_action {

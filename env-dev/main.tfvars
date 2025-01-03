@@ -16,3 +16,4 @@ backend_subnets    = ["10.10.0.64/27", "10.10.0.96/27"]
 db_subnets         = ["10.10.0.128/27", "10.10.0.160/27"]
 public_subnets     = ["10.10.0.192/27", "10.10.0.224/27"]
 Availability_zones = ["us-east-1a", "us-east-1b"]
+certificate_arn    = "arn:aws:acm:us-east-1:471112569439:certificate/46a223be-5a82-4131-817e-714fffaeeb8d"
