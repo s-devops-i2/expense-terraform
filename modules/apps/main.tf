@@ -96,7 +96,7 @@ resource "aws_lb" "main" {
 resource "aws_lb_target_group" "lb-tg" {
   count                = var.lb_needed ? 1 : 0
   name                 = "${var.env}-${var.component}-tg"
-  port                 = var.lb_port
+  port                 = var.app_port
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = 15
@@ -105,7 +105,7 @@ resource "aws_lb_target_group" "lb-tg" {
     healthy_threshold   = 2
     interval            = 5
     path                = "/health"
-    port                = var.lb_port
+    port                = var.app_port
     timeout             = 2
     unhealthy_threshold = 2
 
@@ -116,14 +116,47 @@ resource "aws_lb_target_group_attachment" "tg-attachment" {
   count            = var.lb_needed ? 1 : 0
   target_group_arn = aws_lb_target_group.lb-tg[0].arn
   target_id        = aws_instance.instance.id
-  port             = var.lb_port
+  port             = var.app_port
 }
 
-resource "aws_lb_listener" "listener" {
-  count            = var.lb_needed ? 1 : 0
+resource "aws_lb_listener" "frontend-http" {
+  count            = var.lb_needed && var.lb_type == "public"? 1 : 0
   load_balancer_arn = aws_lb.main[0].arn
-  port              = var.lb_port
+  port              = var.app_port
   protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+
+resource "aws_lb_listener" "frontend-https" {
+  count            = var.lb_needed && var.lb_type == "public"? 1 : 0
+  load_balancer_arn = aws_lb.main[0].arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = "arn:aws:acm:us-east-1:471112569439:certificate/46a223be-5a82-4131-817e-714fffaeeb8d"
+  alpn_policy       = "HTTP2Preferred"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.lb-tg[0].arn
+  }
+}
+
+resource "aws_lb_listener" "backend" {
+  count            = var.lb_needed && var.lb_type != "public"? 1 : 0
+  load_balancer_arn = aws_lb.main[0].arn
+  port              = var.app_port
+  protocol          = " HTTP"
 
   default_action {
     type             = "forward"
