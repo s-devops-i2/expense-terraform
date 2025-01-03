@@ -80,16 +80,44 @@ resource "aws_route53_record" "lb-record" {
   records = [aws_lb.main[0].dns_name]
 }
 
+resource "aws_security_group" "load-balancer" {
+  count       = var.lb_needed ? 1 : 0
+  name        = "${var.component}-${var.env}-lb-sg"
+  description = "${var.component}-${var.env}-lb-sg"
+  vpc_id      = var.vpc_id
+
+  dynamic "ingress" {
+    for_each = var.lb_ports
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "TCP"
+      cidr_blocks = var.lb_app_port_sg_cidr
+    }
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.component}-${var.env}-sg"
+  }
+}
+
 resource "aws_lb" "main" {
   count              = var.lb_needed ? 1 : 0
   name               = "${var.env}-${var.component}-lb"
   internal           = var.lb_type == "public " ? false : true
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.main.id]
+  security_groups    = [aws_security_group.load-balancer[0].id]
   subnets            = var.lb_subnet
 
   tags = {
-    Environment = "${var.env}-${var.component}-lb"
+    Environment = "${var.env}-${var.component}-alb"
   }
 }
 
