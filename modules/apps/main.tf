@@ -52,7 +52,7 @@ resource "null_resource" "ansible" {
         "sudo pip3.11 install ansible hvac",
         "rm -f ~/*.json",
         "ansible-pull -i localhost, -U https://github.com/s-devops-i2/expense-ansible2.git get-secrets.yml -e env=${var.env} -e role_name=${var.component} -e vault_token=${var.vault_token}",
-        "ansible-pull -i localhost, -U https://github.com/s-devops-i2/expense-ansible2.git expense-play.yml -e env=${var.env} -e role_name=${var.component} -e @common.json",
+        "ansible-pull -i localhost, -U https://github.com/s-devops-i2/expense-ansible2.git expense-play.yml -e env=${var.env} -e role_name=${var.component} -e @~/secrets.json",
       ]
   }
   provisioner "remote-exec" {
