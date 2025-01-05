@@ -65,7 +65,7 @@ resource "null_resource" "ansible" {
 }
 
 resource "aws_route53_record" "server-record" {
-  count   = var.lb_needed ? 0 : 1
+  count   = var.lb_needed ? 1 : 0
   name    = "${var.component}-${var.env}"
   type    = "A"
   zone_id = var.zone_id
