@@ -14,3 +14,5 @@ variable "db_subnets" {}
 variable "Availability_zones" {}
 variable "public_subnets" {}
 variable "certificate_arn" {}
+variable "bastion_nodes" {}
+variable "prometheus_nodes" {}
