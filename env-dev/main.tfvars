@@ -6,7 +6,7 @@ zone_id = "Z10377495CKDE7OXJB1E"
 dev_vpc_cidr_block = "10.10.0.0/24"
 
 default_vpc_id = "vpc-0d777bc0eeb02d730"
-dev_route_table_id = "rtb-02977802460c2ef61"
+dev_route_table_id = "rtb-01dcc24591e0b7fe3"
 default_rout_table_id = "rtb-0dfd6bd58ec8c4869"
 default_vpc_cidr      = "172.31.0.0/16"
 dev_vpc_cidr          = "10.10.0.0/24"
