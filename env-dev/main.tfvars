@@ -20,3 +20,7 @@ certificate_arn    = "arn:aws:acm:us-east-1:471112569439:certificate/bd7ac27d-03
 bastion_nodes      = ["172.31.80.148/32"]
 prometheus_nodes   = ["54.87.117.190/32"]
 #server_app_port_sg_cidr =
+
+#ASG
+max_capacity   = 5
+min_capacity   = 1

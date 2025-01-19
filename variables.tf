@@ -16,3 +16,5 @@ variable "public_subnets" {}
 variable "certificate_arn" {}
 variable "bastion_nodes" {}
 variable "prometheus_nodes" {}
+variable "max_capacity" {}
+variable "min_capacity" {}

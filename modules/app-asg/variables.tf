@@ -1,0 +1,11 @@
+variable "instance_type" {}
+variable "env" {}
+variable "component" {}
+variable "max_capacity" {}
+variable "min_capacity" {}
+variable "subnets" {}
+variable "app_port" {}
+variable "vpc_id" {}
+variable "bastion_nodes" {}
+variable "prometheus_nodes" {}
+variable "server_app_port_sg_cidr" {}
