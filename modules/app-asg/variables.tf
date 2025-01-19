@@ -10,3 +10,9 @@ variable "bastion_nodes" {}
 variable "prometheus_nodes" {}
 variable "server_app_port_sg_cidr" {}
 variable "vault_token" {}
+variable "zone_id" {}
+variable "lb_type" {}
+variable "certificate_arn" {}
+variable "lb_subnet" {}
+variable "lb_app_port_sg_cidr" {}
+variable "lb_ports" {}
