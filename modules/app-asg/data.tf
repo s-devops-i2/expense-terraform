@@ -1,7 +1,7 @@
 data "aws_ami" "ami" {
   most_recent      = true
-  name_regex       = "RHEL-9-DevOps-Practice"
-  owners           = ["973714476881"]
+  name_regex       = "golden-ami-${formatdate("DD-MM-YY",timestamp())}"
+  owners           = ["self"]
 }
 
 # data "aws_security_group" "selected" {
