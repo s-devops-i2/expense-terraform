@@ -1,6 +1,7 @@
 instance_type = "t3.small"
 env          = "dev"
-zone_id = "Z10377495CKDE7OXJB1E"
+# zone_id = "Z10377495CKDE7OXJB1E"
+zone_id = "Z067408937AZSMI5YD79X"
 
 # vpc input
 dev_vpc_cidr_block = "10.10.0.0/24"
