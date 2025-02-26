@@ -22,5 +22,5 @@ prometheus_nodes   = ["54.87.117.190/32"]
 #server_app_port_sg_cidr =
 
 #ASG
-max_capacity   = 5
+max_capacity   = 2
 min_capacity   = 1
