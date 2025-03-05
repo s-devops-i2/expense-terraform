@@ -19,7 +19,7 @@ public_subnets     = ["10.10.0.192/27", "10.10.0.224/27"]
 Availability_zones = ["us-east-1a", "us-east-1b"]
 certificate_arn    = "arn:aws:acm:us-east-1:471112569439:certificate/cfa1295f-77c6-4f2a-9bf3-560a008b1d3a"
 bastion_nodes      = ["172.31.80.148/32"]
-prometheus_nodes   = ["54.87.117.190/32"]
+prometheus_nodes   = ["172.31.87.143/32"]
 #server_app_port_sg_cidr =
 
 #ASG
