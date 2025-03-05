@@ -39,7 +39,7 @@ resource "aws_security_group" "main" {
 
 
 resource "aws_launch_template" "main" {
-  name                   = "${var.env}-${var.component}-LT"
+  name                   = "${var.component}-${var.env}-LT"
   image_id               = data.aws_ami.ami.id
   vpc_security_group_ids = [aws_security_group.main.id]
   instance_type          = var.instance_type
@@ -53,7 +53,7 @@ resource "aws_launch_template" "main" {
 }
 
 resource "aws_autoscaling_group" "main" {
-  name               = "${var.env}-${var.component}"
+  name               = "${var.component}-${var.env}"
   desired_capacity   = var.min_capacity
   max_size           = var.max_capacity
   min_size           = var.min_capacity
@@ -67,7 +67,7 @@ resource "aws_autoscaling_group" "main" {
 
   tag {
     key                 = "Name"
-    value               = "${var.env}-${var.component}"
+    value               = "${var.component}-${var.env}"
     propagate_at_launch = true
   }
   tag {
@@ -119,20 +119,20 @@ resource "aws_security_group" "load-balancer" {
   }
 }
 resource "aws_lb" "main" {
-  name               = "${var.env}-${var.component}-alb"
+  name               = "${var.component}-${var.env}-alb"
   internal           = var.lb_type == "public" ? false : true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.load-balancer.id]
   subnets            = var.lb_subnet
 
   tags = {
-    Environment = "${var.env}-${var.component}-alb"
+    Environment = "${var.component}-${var.env}-alb"
   }
 }
 
 
 resource "aws_lb_target_group" "main" {
-  name     = "${var.env}-${var.component}-tg"
+  name     = "${var.component}-${var.env}-tg"
   port     = var.app_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
